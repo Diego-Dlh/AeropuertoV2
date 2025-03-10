@@ -55,20 +55,20 @@ class VueloInterfaceTest {
     @Test
     void testFindByOrigen() {
         List<Vuelo> vuelos = vueloInterface.findByOrigen("Bogotá");
-        assertEquals(2, vuelos.size(), "Debe haber 2 vuelos desde Bogotá");
+        assertEquals(2, vuelos.size());
     }
 
     @Test
     void testFindByDestino() {
-        List<Vuelo> vuelos = vueloInterface.findByDestino("Bogotá"); // Corregido de "Bogota" a "Bogotá"
-        assertEquals(1, vuelos.size(), "Debe haber 1 vuelo con destino a Bogotá");
+        List<Vuelo> vuelos = vueloInterface.findByDestino("Bogotá");
+        assertEquals(1, vuelos.size());
         assertEquals("Cali", vuelos.get(0).getOrigen());
     }
 
     @Test
     void testFindByNumVuelo() {
         Optional<Vuelo> vuelo = vueloInterface.findByNumVuelo(vuelo1.getNumVuelo());
-        assertTrue(vuelo.isPresent(), "El vuelo debe estar presente en la BD");
+        assertTrue(vuelo.isPresent());
         assertEquals("Bogotá", vuelo.get().getOrigen());
     }
 
@@ -76,40 +76,37 @@ class VueloInterfaceTest {
     void testFindAllByOrderByOrigenAsc() {
         List<Vuelo> vuelos = vueloInterface.findAllByOrderByOrigenAsc();
         assertEquals(4, vuelos.size(), "Debe haber 3 vuelos en total");
-        assertEquals("Bogotá", vuelos.get(0).getOrigen(), "El primer vuelo debe ser desde Bogotá");
+        assertEquals("Bogotá", vuelos.get(0).getOrigen());
     }
 
     @Test
     void testFindByDestinoContaining() {
         List<Vuelo> vuelos = vueloInterface.findByDestinoContaining("o");
 
-        // Depuración: imprimir resultados
         System.out.println("Vuelos encontrados en testFindByDestinoContaining:");
         vuelos.forEach(v -> System.out.println(v.getDestino()));
-
         // Filtra manualmente para contar los que contienen "o" (ignorando mayúsculas/minúsculas)
         long count = vuelos.stream()
                 .filter(v -> v.getDestino().toLowerCase().contains("o"))
                 .count();
 
-        assertEquals(2, count, "Debe haber 2 vuelos con 'o' en el destino");
+        assertEquals(2, count);
     }
 
     @Test
     void testCountVuelosDesdeOrigen() {
         long count = vueloInterface.countVuelosDesdeOrigen("Bogotá");
-        assertEquals(2, count, "Debe haber 2 vuelos desde Bogotá");
+        assertEquals(2, count);
     }
 
     @Test
     void testFindAllOrderByDestinoDesc() {
         List<Vuelo> vuelos = vueloInterface.findAllOrderByDestinoDesc();
 
-        // Depuración: imprimir los destinos en orden
         System.out.println("Orden de destinos en testFindAllOrderByDestinoDesc:");
         vuelos.forEach(v -> System.out.println(v.getDestino()));
 
         assertEquals(4, vuelos.size(), "Debe haber 4 vuelos en total");
-        assertEquals("Medellín", vuelos.get(0).getDestino(), "El primer destino en orden descendente debe ser Medellín");
+        assertEquals("Medellín", vuelos.get(0).getDestino());
     }
 }
