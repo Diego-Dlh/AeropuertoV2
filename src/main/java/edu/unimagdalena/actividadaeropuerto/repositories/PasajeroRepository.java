@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface PasajeroInterface extends JpaRepository<Pasajero, Long> {
+public interface PasajeroRepository extends JpaRepository<Pasajero, Long> {
 
     List<Pasajero> findByNombre(String nombre);
     Optional<Pasajero> findByNid(String nid);

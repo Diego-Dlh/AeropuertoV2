@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
-public interface ReservaInterface extends JpaRepository<Reserva, Long> {
+public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     List<Reserva> findByCodigoReserva(UUID codigoReserva);
     List<Reserva> findByIdIn(List<Long> ids);

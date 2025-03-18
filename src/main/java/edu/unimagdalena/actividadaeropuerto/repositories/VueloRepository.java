@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface VueloInterface extends JpaRepository<Vuelo, Long> {
+public interface VueloRepository extends JpaRepository<Vuelo, Long> {
 
         //  CONSULTAS USANDO QUERY METHODS
 

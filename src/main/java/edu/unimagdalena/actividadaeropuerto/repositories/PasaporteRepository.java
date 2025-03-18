@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PasaporteInterface extends JpaRepository<Pasaporte, Long> {
+public interface PasaporteRepository extends JpaRepository<Pasaporte, Long> {
 
     List<Pasaporte> findByNumero(String numero);
     List<Pasaporte> findByNumeroContainingIgnoreCase(String numero);
