@@ -33,10 +33,6 @@ public class AerolineaService {
         aerolineaRepository.deleteById(id);
     }
 
-    //actualizar Aerolinea
-    public void actualizarAerolinea(long id,Aerolinea aerolinea) {
-
-    }
 
 
 }
