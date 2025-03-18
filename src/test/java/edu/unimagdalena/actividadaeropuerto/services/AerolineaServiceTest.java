@@ -23,7 +23,8 @@ class AerolineaServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); //inicializa los mocks antes de cada prueba
+        MockitoAnnotations.openMocks(this);
+        //inicializa los mocks antes de cada prueba
     }
 
     @Test
