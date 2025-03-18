@@ -11,8 +11,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AerolineaServiceTest {
@@ -49,7 +47,7 @@ class AerolineaServiceTest {
     }
 
     @Test
-    void buscarPorId() {
+    void buscarPorId_Encontrado() {
         Aerolinea aerolinea = new Aerolinea();
         aerolinea.setId(1L);
         aerolinea.setNombre("avianca");
@@ -66,10 +64,32 @@ class AerolineaServiceTest {
     }
 
     @Test
-    void eliminarAerolinea() {
+    void buscarPorId_NoEncontrado() {
+        when(aerolineaRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Optional<Aerolinea> result = aerolineaService.buscarPorId(1L);
+
+        assertFalse(result.isPresent());
+        verify(aerolineaRepository, times(1)).findById(1L);
     }
 
     @Test
-    void actualizarAerolinea() {
+    void eliminarAerolinea() {
+        // Simulación de datos
+        long id = 1L;
+        Aerolinea aerolinea = new Aerolinea();
+        aerolinea.setId(id);
+        aerolinea.setNombre("avianca");
+
+        // Simular que el repositorio encuentra la aerolínea
+        when(aerolineaRepository.findById(id)).thenReturn(Optional.of(aerolinea));
+
+        // Llamar al método del servicio
+        aerolineaService.eliminarAerolinea(id);
+
+        // Verificar que deleteById() fue llamado una vez con el ID correcto
+        verify(aerolineaRepository, times(1)).deleteById(id);
     }
+
+
 }
