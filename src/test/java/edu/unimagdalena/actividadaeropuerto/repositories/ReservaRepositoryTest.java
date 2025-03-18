@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ReservaInterfaceTest {
+class ReservaRepositoryTest {
 
     @Container
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17")
@@ -32,13 +32,13 @@ class ReservaInterfaceTest {
             .withPassword("testpass");
 
     @Autowired
-    private ReservaInterface reservaRepository;
+    private ReservaRepository reservaRepository;
 
     @Autowired
-    private VueloInterface vueloRepository;
+    private VueloRepository vueloRepository;
 
     @Autowired
-    private PasajeroInterface pasajeroRepository;
+    private PasajeroRepository pasajeroRepository;
 
     private Vuelo vuelo;
     private Pasajero pasajero;

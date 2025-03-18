@@ -14,7 +14,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class PasaporteInterfaceTest {
+class PasaporteRepositoryTest {
 
     @Container
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17")
@@ -31,10 +30,10 @@ class PasaporteInterfaceTest {
             .withPassword("testpass");
 
     @Autowired
-    private PasaporteInterface pasaporteRepository;
+    private PasaporteRepository pasaporteRepository;
 
     @Autowired
-    private PasajeroInterface pasajeroRepository;
+    private PasajeroRepository pasajeroRepository;
 
     private Pasajero crearPasajero(String nombre, String nid) {
         Pasajero pasajero = new Pasajero();

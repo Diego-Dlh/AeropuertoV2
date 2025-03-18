@@ -20,12 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class VueloInterfaceTest {
+class VueloRepositoryTest {
 
     @Autowired
-    private VueloInterface vueloInterface;
-
-    private Vuelo vuelo1, vuelo2, vuelo3,vuelo4;
+    private VueloRepository vueloRepository;
+    private Vuelo vuelo1;
+    private Vuelo vuelo2;
+    private Vuelo vuelo3;
+    private Vuelo vuelo4;
 
     @BeforeEach
     void setUp() {
@@ -49,43 +51,43 @@ class VueloInterfaceTest {
         vuelo4.setDestino("Bogota");
         vuelo4.setNumVuelo(UUID.randomUUID());
 
-        vueloInterface.saveAll(List.of(vuelo1, vuelo2, vuelo3,vuelo4));
+        vueloRepository.saveAll(List.of(vuelo1, vuelo2, vuelo3, vuelo4));
     }
 
     @Test
     void testFindByOrigen() {
-        List<Vuelo> vuelos = vueloInterface.findByOrigen("Bogotá");
+        List<Vuelo> vuelos = vueloRepository.findByOrigen("Bogotá");
         assertEquals(2, vuelos.size());
     }
 
     @Test
     void testFindByDestino() {
-        List<Vuelo> vuelos = vueloInterface.findByDestino("Bogotá");
+        List<Vuelo> vuelos = vueloRepository.findByDestino("Bogotá");
         assertEquals(1, vuelos.size());
         assertEquals("Cali", vuelos.get(0).getOrigen());
     }
 
     @Test
     void testFindByNumVuelo() {
-        Optional<Vuelo> vuelo = vueloInterface.findByNumVuelo(vuelo1.getNumVuelo());
+        Optional<Vuelo> vuelo = vueloRepository.findByNumVuelo(vuelo1.getNumVuelo());
         assertTrue(vuelo.isPresent());
         assertEquals("Bogotá", vuelo.get().getOrigen());
     }
 
     @Test
     void testFindAllByOrderByOrigenAsc() {
-        List<Vuelo> vuelos = vueloInterface.findAllByOrderByOrigenAsc();
+        List<Vuelo> vuelos = vueloRepository.findAllByOrderByOrigenAsc();
         assertEquals(4, vuelos.size(), "Debe haber 3 vuelos en total");
         assertEquals("Bogotá", vuelos.get(0).getOrigen());
     }
 
     @Test
     void testFindByDestinoContaining() {
-        List<Vuelo> vuelos = vueloInterface.findByDestinoContaining("o");
+        List<Vuelo> vuelos = vueloRepository.findByDestinoContaining("o");
 
         System.out.println("Vuelos encontrados en testFindByDestinoContaining:");
         vuelos.forEach(v -> System.out.println(v.getDestino()));
-        // Filtra manualmente para contar los que contienen "o" (ignorando mayúsculas/minúsculas)
+        // Filtra manualmente para contar los que contienen "o" ignora mayus y minus
         long count = vuelos.stream()
                 .filter(v -> v.getDestino().toLowerCase().contains("o"))
                 .count();
@@ -95,13 +97,13 @@ class VueloInterfaceTest {
 
     @Test
     void testCountVuelosDesdeOrigen() {
-        long count = vueloInterface.countVuelosDesdeOrigen("Bogotá");
+        long count = vueloRepository.countVuelosDesdeOrigen("Bogotá");
         assertEquals(2, count);
     }
 
     @Test
     void testFindAllOrderByDestinoDesc() {
-        List<Vuelo> vuelos = vueloInterface.findAllOrderByDestinoDesc();
+        List<Vuelo> vuelos = vueloRepository.findAllOrderByDestinoDesc();
 
         System.out.println("Orden de destinos en testFindAllOrderByDestinoDesc:");
         vuelos.forEach(v -> System.out.println(v.getDestino()));

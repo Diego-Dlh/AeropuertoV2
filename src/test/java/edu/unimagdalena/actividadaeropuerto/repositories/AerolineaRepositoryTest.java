@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class AerolineaInterfaceTest {
+class AerolineaRepositoryTest {
 
     @Container
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17")
@@ -31,7 +31,7 @@ class AerolineaInterfaceTest {
             .withPassword("testpass");
 
     @Autowired
-    private AerolineaInterface aerolineaRepository;
+    private AerolineaRepository aerolineaRepository;
 
     @BeforeEach
     void setUp() {
